@@ -6,10 +6,18 @@ from .views import PostViewSet, GroupViewSet, CommentViewSet
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='posts')
 router.register(r'groups', GroupViewSet, basename='groups')
-router.register(r'posts/(?P<poost_id>/d+)/comments',
-                CommentViewSet, basename='comments')
 
 urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('posts/<int:post_id>/comments/', CommentViewSet.as_view({
+        'get': 'list',
+        'post': 'create'
+    }), name='comment-list'),
+    path('posts/<int:post_id>/comments/<int:pk>/', CommentViewSet.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'patch': 'partial_update',
+        'delete': 'destroy'
+    }), name='comment-detail'),
 ]

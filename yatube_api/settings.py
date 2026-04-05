@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'api'
+    'api',
+    'yatube_api',
 ]
 
 MIDDLEWARE = [
